@@ -283,8 +283,8 @@ else  # mimix
         end
         
         if monitor_θ_mean && monitor_θ_var
-            θ_mean_post = convert(Matrix, get_post(sim, data, :θ_mean))
-            θ_var_post = convert(Matrix, get_post(sim, data, :θ_var))
+            θ_mean_post = Matrix(get_post(sim, data, :θ_mean))
+            θ_var_post = Matrix(get_post(sim, data, :θ_var))
             iters = size(θ_mean_post, 1) 
             θ_post = zeros(iters, data[:N] * data[:K])
             for iter in 1:iters
