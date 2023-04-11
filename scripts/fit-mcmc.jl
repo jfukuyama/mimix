@@ -64,11 +64,11 @@ end
 
 function read_data(dir; L=0)
     println("Reading X.csv")
-    X = convert(Matrix{Int}, DataFrame!(CSV.File(joinpath(dir, "X.csv"), datarow=1)))
+    X = Matrix(DataFrame(CSV.File(joinpath(dir, "X.csv"), datarow=1)))
     println("Reading Y.csv")
-    Y = convert(Matrix{Int}, DataFrame!(CSV.File(joinpath(dir, "Y.csv"), datarow=1)))
+    Y = Matrix(DataFrame(CSV.File(joinpath(dir, "Y.csv"), datarow=1)))
     println("Reading Z.csv")
-    Z = convert(Matrix{Int}, DataFrame!(CSV.File(joinpath(dir, "Z.csv"), datarow=1)))
+    Z = Matrix(DataFrame(CSV.File(joinpath(dir, "Z.csv"), datarow=1)))
     N, K = size(Y)
     m = sum(Y, dims=2)
     q = maximum(vec(Z))
@@ -174,7 +174,7 @@ else  # mimix
     if monitor_Λ
         # Lambda is large, so rather than save every sample we save the posterior mean
         Λ = get_post(sim, data, :Λ)
-        Λ_values = convert(Matrix, Λ)
+        Λ_values = Matrix(Λ)
         Λ_postmean = reshape(vec(mean(Λ_values, dims=1)), data[:L], data[:K])
         post_path = joinpath(output, "Lambda-postmean.tsv")
         println("Saving posterior mean of Lambda to $post_path")
